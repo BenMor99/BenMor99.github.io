@@ -3,15 +3,255 @@ layout: default
 title: "Home"
 ---
 
-{% if site.show_excerpts %}
-  {% for post in site.posts %}
-    <article>
-      {% include meta.html post=post %}
-      {{ post.excerpt }}
-      <footer class="button"><a href="{{ post.url | relative_url }}">read more</a></footer>
-    </article>
-  {% endfor %}
-{% else %}
-  {% capture source %}{% include_relative archive.html title="Posts" %}{% endcapture %}
-  {{ source | split: "---" | last }}
-{% endif %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Name — Home</title>
+  <meta name="description" content="Personal website of Your Name — developer, designer, and maker." />
+  <meta name="author" content="Your Name" />
+  <meta property="og:title" content="Your Name — Home" />
+  <meta property="og:description" content="Portfolio and contact page for Your Name." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#7c3aed; --glass: rgba(255,255,255,0.04);
+      --max-width:1100px;
+      color-scheme: dark;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#071025);color:#e6eef6}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max-width);margin:0 auto;padding:32px}
+
+    /* NAV */
+    header{backdrop-filter: blur(6px);position:sticky;top:12px;z-index:50}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:10px;background:linear-gradient(180deg,transparent,var(--glass));border-radius:14px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#2dd4bf);display:flex;align-items:center;justify-content:center;font-weight:700}
+    nav ul{display:flex;gap:18px;align-items:center;margin:0;padding:0;list-style:none}
+    .btn{padding:8px 12px;border-radius:8px;background:linear-gradient(90deg,var(--accent),#4f46e5);font-weight:600}
+
+    /* HERO */
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;padding:52px 0}
+    .hero .eyebrow{color:var(--muted);font-weight:600;letter-spacing:1px}
+    .hero h1{margin:12px 0 6px;font-size:clamp(28px,4.6vw,44px);line-height:1.02}
+    .hero p{color:var(--muted);max-width:60ch}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:20px;border-radius:14px}
+    .profile{display:flex;flex-direction:column;gap:16px;align-items:center}
+    .avatar{width:160px;height:160px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(180deg,#0b1220,#08111b);box-shadow:0 6px 20px rgba(2,6,23,0.6)}
+    .avatar svg{width:80%;height:80%}
+    .meta{display:flex;gap:12px}
+    .meta div{font-size:13px;color:var(--muted);text-align:center}
+
+    /* PROJECTS */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:18px}
+    .project{padding:14px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent)}
+    .project h3{margin:0 0 8px}
+    .project p{margin:0;color:var(--muted);font-size:14px}
+
+    /* CONTACT */
+    .contact{display:grid;grid-template-columns:1fr 360px;gap:22px;margin-top:28px}
+    label{display:block;font-size:13px;margin-bottom:6px;color:var(--muted)}
+    input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    .muted{color:var(--muted);font-size:13px}
+
+    footer{margin-top:46px;padding:28px 0;color:var(--muted);text-align:center}
+
+    /* responsive */
+    @media (max-width:900px){
+      .hero,.contact{grid-template-columns:1fr}
+      nav ul{display:none}
+      .mobile-toggle{display:inline-flex}
+    }
+    .mobile-toggle{display:none;align-items:center;gap:8px}
+
+    /* small utilities */
+    .small{font-size:13px;color:var(--muted)}
+    .tags{display:flex;gap:8px;flex-wrap:wrap}
+    .tag{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);font-size:13px}
+  </style>
+</head>
+<body>
+  <header class="container">
+    <div class="nav">
+      <div class="brand">
+        <div class="logo">YN</div>
+        <div>
+          <div style="font-weight:700">Your Name</div>
+          <div class="small">Developer · Designer · Maker</div>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px">
+        <nav>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#blog">Blog</a></li>
+          </ul>
+        </nav>
+        <div class="mobile-toggle">
+          <button id="navToggle" aria-expanded="false" aria-controls="mobileNav">Menu</button>
+        </div>
+        <a class="btn" href="#contact">Get in touch</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Hi — I’m</div>
+        <h1>Your Name — building beautiful and useful things on the web.</h1>
+        <p>I’m a full‑stack developer and designer focused on clean UI, fast performance, and delightful user experiences. I ship product features, open-source libraries, and occasional long-form writing about engineering and design.</p>
+
+        <div style="margin-top:18px;display:flex;gap:12px;align-items:center">
+          <a class="btn" href="#projects">See projects</a>
+          <a class="small" href="#contact">Contact me</a>
+        </div>
+
+        <div style="margin-top:22px">
+          <div class="small" style="margin-bottom:8px">Tech & tools</div>
+          <div class="tags">
+            <div class="tag">JavaScript</div>
+            <div class="tag">TypeScript</div>
+            <div class="tag">HTML & CSS</div>
+            <div class="tag">React</div>
+            <div class="tag">Node.js</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="card profile">
+        <div class="avatar" aria-hidden="true">
+          <!-- simple SVG placeholder for avatar -->
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Avatar placeholder">
+            <rect width="120" height="120" rx="14" fill="url(#g)" />
+            <defs>
+              <linearGradient id="g" x1="0" x2="1">
+                <stop offset="0" stop-color="#112" stop-opacity="1" />
+                <stop offset="1" stop-color="#071025" stop-opacity="1" />
+              </linearGradient>
+            </defs>
+            <g fill="#9fb3c8" transform="translate(18,24)">
+              <circle cx="42" cy="24" r="18" />
+              <rect x="6" y="54" width="72" height="18" rx="8" />
+            </g>
+          </svg>
+        </div>
+
+        <div style="text-align:center">
+          <div style="font-weight:700">Your Name</div>
+          <div class="muted">Software engineer & designer</div>
+        </div>
+
+        <div class="meta">
+          <div>
+            <div style="font-weight:700">10+</div>
+            <div class="small">Years experience</div>
+          </div>
+          <div>
+            <div style="font-weight:700">20+</div>
+            <div class="small">Projects shipped</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="about">
+      <div style="margin-top:10px">
+        <h2>About</h2>
+        <p class="muted">I work at the intersection of design and engineering — crafting performant web apps and delightful interfaces. My work spans product startups, design systems, and open-source maintenance. I enjoy mentorship, writing, and contributing to developer tooling.</p>
+      </div>
+    </section>
+
+    <section id="projects" style="margin-top:20px">
+      <h2>Selected projects</h2>
+      <div class="grid">
+        <article class="project">
+          <h3>Project One</h3>
+          <p>Short description of the project, what it does, and why it’s interesting.</p>
+        </article>
+        <article class="project">
+          <h3>Project Two</h3>
+          <p>Short description + link to live demo or repo.</p>
+        </article>
+        <article class="project">
+          <h3>Open‑source lib</h3>
+          <p>Small library that solves a common problem — lightweight and well tested.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div>
+        <h2>Contact</h2>
+        <p class="muted">Interested in working together or have a question? Send a short message — I typically reply within a few days.</p>
+
+        <form onsubmit="handleForm(event)">
+          <label for="name">Name</label>
+          <input id="name" name="name" required placeholder="Your name" />
+
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required placeholder="you@example.com" />
+
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="6" required placeholder="Say hi — tell me about your project or question"></textarea>
+
+          <div style="margin-top:10px;display:flex;gap:10px;align-items:center">
+            <button class="btn" type="submit">Send message</button>
+            <div class="small muted">Or email: <a href="mailto:hello@yourdomain.com">hello@yourdomain.com</a></div>
+          </div>
+        </form>
+      </div>
+
+      <aside class="card">
+        <h3>Where to find me</h3>
+        <p class="muted">I’m available for freelance and full-time roles. You can also find my work on GitHub and socials.</p>
+        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+          <a class="tag" href="#">GitHub</a>
+          <a class="tag" href="#">LinkedIn</a>
+          <a class="tag" href="#">Twitter</a>
+        </div>
+      </aside>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> Your Name • Built with ❤️</div>
+    </footer>
+  </main>
+
+  <script>
+    // small helpers: year, mobile nav toggle, form fallback
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function handleForm(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const subject = encodeURIComponent('Website contact from ' + name);
+      const body = encodeURIComponent('Name: '+name+'\nEmail: '+email+'\n\n'+message);
+      // fallback: open mail client with prefilled subject/body
+      window.location.href = `mailto:hello@yourdomain.com?subject=${subject}&body=${body}`;
+    }
+
+    // Optional: mobile nav toggle (kept minimal - add a mobile menu if you want)
+    const navToggle = document.getElementById('navToggle');
+    if(navToggle){
+      navToggle.addEventListener('click', ()=>{
+        const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+        navToggle.setAttribute('aria-expanded', String(!expanded));
+        alert('Add a mobile menu here or link to sections — this is a placeholder.');
+      })
+    }
+  </script>
+</body>
+</html>
+
