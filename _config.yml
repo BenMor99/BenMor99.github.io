@@ -18,8 +18,12 @@ show_minimal: false             # remove all clutter
 # Menu                          # for available icons see https://fontawesome.com/v5/icons/
 
 navigation:                     # accepts {file, title, url, icon, sidebaricon}
-  - {file: "archive.html", title: "Home", sidebaricon: home}
-  - {file: "README.md", title: "About Me", sidebaricon: address-card}
+  - {file: "index.html", title: "Home", sidebaricon: home}
+  - {file: "index.html", title: "CV", sidebaricon: home}
+  - {file: "index.html", title: "Research", sidebaricon: home}
+  - {file: "index.html", title: "Blog", sidebaricon: home}
+  - {file: "archive.html", title: "News", sidebaricon: news}
+  - {file: "README.md", title: "Gallery", sidebaricon: address-card}
 
 external:                       # accepts {file, title, url, icon, sidebaricon}
   - {title: Mail, icon: envelope, url: "mailto:ben.moradkhani@gmail.com"}
