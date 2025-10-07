@@ -18,13 +18,14 @@ show_minimal: false             # remove all clutter
 # Menu                          # for available icons see https://fontawesome.com/v5/icons/
 
 navigation:                     # accepts {file, title, url, icon, sidebaricon}
-  - {file: "archive.html", sidebaricon: home}
-  - {file: "README.md", sidebaricon: address-card}
+  - {file: "archive.html", title: Home, sidebaricon: home}
+  - {file: "README.md", title: About, sidebaricon: address-card}
 
 external:                       # accepts {file, title, url, icon, sidebaricon}
   - {title: Mail, icon: envelope, url: "mailto:ben.moradkhani@gmail.com"}
   - {title: LinkedIn, icon: linkedin, url: "https://www.linkedin.com/in/behnam-moradkhani/"}
   - {title: Github, icon: github, url: "https://github.com/BenMor99"}
+  - {title: Instagram, icon: instagram, url: "https://www.instagram.com/ben.mor99/?next=%2F"}
 
 comments:
 #  disqus_shortname: ""         # see https://disqus.com
